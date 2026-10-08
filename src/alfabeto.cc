@@ -6,7 +6,7 @@ Alfabeto::Alfabeto() {
 
 void Alfabeto::anadirSimbolo(char simbolo) {
   if (simbolo == '.') {
-    throw ("No se puede añadir el símbolo '.'");
+    throw std::invalid_argument("No se puede añadir el símbolo '.'");
   }
   simbolos_.insert(simbolo);
 }

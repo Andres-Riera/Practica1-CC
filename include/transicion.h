@@ -1,12 +1,21 @@
+#pragma once
+
+
+#include <istream>
+#include <iostream>
+#include <sstream>
 #include <string>
 
-struct Transiciones {
- public:
-     Transiciones() = default;
-     ~Transiciones() = default;
+struct Transicion {
+  std::string estado_actual;
+  char entrada;
+  char entrada_pila;
+  std::string estado_siguiente;
+  std::string accion_pila;
+  short id;
 
-     void agregarTransicion(std::string estado, char simbolo, char simboloPila, std::string estadoDestino, std::string accionPila);
-     std::set<int> obtenerEstadosDestino(char simbolo) const;
- private:
-     std::map<char, std::set<int>> transiciones_;
+  void imprimir(std::ostream& os) const {
+    os << id << " - (" << estado_actual << ", " << entrada << ", " << entrada_pila << ") -> ("
+       << estado_siguiente << ", " << accion_pila << ")";
+  }
 };
