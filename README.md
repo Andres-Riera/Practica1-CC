@@ -13,7 +13,7 @@ $ make
 ## Ejecutar el programa
 
 ```bash
-$ ./automata_pila -config <fichero> -trace <y|n>
+$ ./build/automata -config <fichero> -trace <y|n>
 ```
 
 ## Observaciones
