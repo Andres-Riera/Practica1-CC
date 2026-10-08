@@ -1,12 +1,12 @@
 #include "../include/pilaDeSimbolos.h"
 
 PilaDeSimbolos::PilaDeSimbolos(Alfabeto& alfabeto, char inicial) : alfabeto_(alfabeto) {
-  stack_.push_back(inicial);
+  push(inicial);
 }
 
 void PilaDeSimbolos::push(char simbolo) {
     if (!alfabeto_.contiene(simbolo)) {
-        throw std::runtime_error("El símbolo no pertenece al alfabeto");
+        throw std::runtime_error("Error: El símbolo " + std::string(1, simbolo) + " no pertenece al alfabeto de la pila");
     }
      stack_.push_back(simbolo);
 }

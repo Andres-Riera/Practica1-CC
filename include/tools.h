@@ -49,6 +49,7 @@ bool comprobarTransicion(std::vector<std::string> estados, Alfabeto alfabeto, Al
 AutomataConPila cargarArchivo(std::ifstream& archivo) {
   std::string linea;
   int numeroLinea = 0;
+  int lineasComentarios = 0;
   
   std::vector<std::string> estados;
   Alfabeto alfabeto;
@@ -60,7 +61,8 @@ AutomataConPila cargarArchivo(std::ifstream& archivo) {
 
   while (std::getline(archivo, linea)) {
     if (linea.empty() || linea[0] == '#') {
-      continue; 
+      lineasComentarios++;
+      continue;    
     }
 
     std::istringstream iss(linea);
@@ -96,11 +98,15 @@ AutomataConPila cargarArchivo(std::ifstream& archivo) {
     else if (numeroLinea == 3) {
       // estado inicial
       iss >> estadoInicial;
+      if (!estadoAnadido(estadoInicial, estados)) {
+        throw std::invalid_argument("Error: El estado inicial no pertenece al conjunto de estados Q.");
+      }
       numeroLinea++;
     } 
     else if (numeroLinea == 4) {
       // simbolo inicial de la pila
       iss >> simboloInicialPila;
+      PilaDeSimbolos pilaAux(alfabetoPila, simboloInicialPila);
       numeroLinea++;
     } 
     else {
@@ -111,7 +117,7 @@ AutomataConPila cargarArchivo(std::ifstream& archivo) {
         transiciones.push_back(t);
       }
       if(!comprobarTransicion(estados, alfabeto, alfabetoPila, t)) {
-        throw std::invalid_argument("Error: Transición inválida en la línea " + std::to_string(numeroLinea + 1));
+        throw std::invalid_argument("Error: Transición inválida en la línea " + std::to_string(numeroLinea + 1 + lineasComentarios));
       }
       numeroLinea++;
     }

@@ -26,6 +26,10 @@ bool AutomataConPila::siguienteIteracion(const std::string& cadena, int indiceCa
   }
   // pila vacía y cadena sin leer completamente
   if (pila.empty()) {
+    if (modoTraza) {
+      out << "Estado: " << estadoActual << " | Cadena: " << cadena.substr(indiceCadena)
+          << " | Pila: " << pila.toString() << " | Transiciones: " << std::endl;
+    }
     return false;
   }
 
